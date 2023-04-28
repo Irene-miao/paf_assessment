@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,11 +95,14 @@ public class BeerController {
 
 	
 	//TODO Task 5 - view 2, place order
-	@PostMapping(path="/brewery/{breweryId}/order", consumes=MediaType.)
-	public ResponseEntity<String> placeOrder(@RequestParam String quantity){
+	@PostMapping(path="/brewery/{breweryId}/order", consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<String> placeOrder(@RequestParam String quantity, @RequestParam String beerId, @RequestParam String breweryId){
 
-		
+		String json = svc.placeOrder(quantity, beerId, breweryId);
 
+		return ResponseEntity.status(200)
+		.contentType(MediaType.APPLICATION_JSON)
+		.body(json);
 	}
 
 
